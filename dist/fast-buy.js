@@ -1,13 +1,13 @@
 'use strict';
 
 document.addEventListener("DOMContentLoaded", function () {
-  // api url
+
   var API = 'api/catalog_system/pub/products/variations/';
-  // create session
+
   sessionStorage.setItem('heckel', JSON.stringify({ 'lastState': 0 }));
-  // style
+
   var style = '<style>\n    .tamanhos{border:1px solid #c8c8c8;padding:10px;max-width:208px;margin:0 auto;box-sizing:border-box}\n    .tamanho-sku-fast-buy{border:1px solid #f4f4f4;padding:4px;text-decoration:none;box-sizing:border-box;font-size:1.3em;}\n    .tamanho-sku-fast-buy:hover{background:#6a6a6a;border:1px solid #6a6a6a;color:#fff;}\n    .tamanho-content{display: flex;justify-content: center;margin-top: 10px;}\n  </style>';
-  // add style header
+
   document.getElementsByTagName("head")[0].insertAdjacentHTML('beforeend', style);
 
   var removeFastBuyAndAddFastBuy2 = function removeFastBuyAndAddFastBuy2() {
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     for (var i = 0; i < element.length; i++) {
       element[i].classList.remove(search);
       element[i].classList.add(btnNameAdd);
+      element[i].href = "#";
     }
   };
 
@@ -47,20 +48,49 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  $(document).on('click', '.btn-fast-buy2', function (event) {
+  var removeElementsByClass = function removeElementsByClass(className) {
+    var elements = document.getElementsByClassName(className);
+    while (elements.length > 0) {
+      elements[0].parentNode.removeChild(elements[0]);
+    }
+  };
+
+  document.body.addEventListener("click", function (event) {
     event.preventDefault();
-    $(event.currentTarget).prop('disabled', true);
 
-    var id = $(event.currentTarget).data('id');
+    var target = event.target;
+
+    while (target) {
+      if (target.classList && target.classList.contains('btn-fast-buy2')) {
+        break;
+      }
+      // Note: May want parentElement here instead.
+      target = target.parentNode;
+    }
+
+    if (!target) {
+      return;
+    }
+
+    fastBuyButtonClicked(target);
+  });
+
+  //$(document).on('click', '.fast-buy-2', function(e){});
+  function fastBuyButtonClicked(target) {
+    var self = target;
+    var id = self.getAttribute('data-id');
+    console.log(id);
     var obj = sessionStorage.getItem('heckel');
+    self.disabled = true;
 
-    $(".tamanhos").remove();
+    var div_tamanhos_disponiveis = document.getElementsByTagName('tamanhos');
+
+    removeElementsByClass('tamanhos');
 
     if (obj) {
       obj = JSON.parse(obj);
 
       if (obj.state && obj.lastState == id) {
-
         sessionStorage.setItem('heckel', JSON.stringify({ 'lastState': 0 }));
       } else {
 
@@ -70,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
           var i = '.btn-fast-buy2[data-id=' + id + ']';
           var quantidade_items = $(".tamanhos").length;
 
-          $.each(dados.skus, function (k, v) {
+          dados.skus.forEach(function (v) {
             item += mountLinks(v.dimensions.Tamanho, v.sku);
           });
 
@@ -87,10 +117,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
     }
-    $(event.currentTarget).prop('disabled', false);
-  });
+    self.disabled = false;
+  };
 
   removeFastBuyAndAddFastBuy2();
+  console.log('chamou');
 
   var prateleira = 0;
 
