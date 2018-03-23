@@ -1,0 +1,29 @@
+{
+  "name": "heckel-fast-buy",
+  "version": "1.0.0",
+  "description": "Javascript para buscar as variações de tamanho de um produto e exibir ao clicar no botão fast-buy-2. ",
+  "main": "src/fast-buy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src/fast-buy.js --out-file dist/fast-buy.js",
+    "compress": "./node_modules/.bin/uglifyjs dist/fast-buy.js --output dist/fast-buy.min.js --compress --mangle --warn --verbose",
+    "build:all": "npm run build && npm run compress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericluciano/heckelVerriFastBuy.git"
+  },
+  "keywords": [
+    "vtex",
+    "js",
+    "api"
+  ],
+  "author": "Eric Luciano <ericluciano.rj@gmail.com> (https://ericluciano.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "jquery": "^3.3.1",
+    "uglify-js": "^3.3.16"
+  }
+}
