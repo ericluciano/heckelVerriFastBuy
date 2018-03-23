@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .tamanho-content{display: flex;justify-content: center;margin-top: 10px;}
   </style>`;
 
-  document.getElementsByTagName("head")[0].insertAdjacentHTML('beforeend', style);
+  document.getElementsByTagName("head")[0]
+  .insertAdjacentHTML('beforeend', style);
 
   const removeFastBuyAndAddFastBuy2 = () => {
 
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnNameAdd = 'btn-fast-buy2';
     const element = document.querySelectorAll(`.${search}`);
 
-    for(var i = 0; i < element.length; i++) {
+    for(let i = 0; i < element.length; i++) {
       element[i].classList.remove(search);
       element[i].classList.add(btnNameAdd);
       element[i].href = "#";
@@ -66,35 +67,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  document.body.addEventListener("click", (event) => {
+  $(document).on('click', '.btn-fast-buy2', function(event){
     event.preventDefault();
 
-    let target = event.target;
-
-      while (target) {
-        if (target.classList && target.classList.contains('btn-fast-buy2')) {
-          break;
-        }
-        // Note: May want parentElement here instead.
-        target = target.parentNode;
-      }
-
-      if (!target) {
-         return;
-      }
-
-    fastBuyButtonClicked(target);
-});
-
-  //$(document).on('click', '.fast-buy-2', function(e){});
-   function fastBuyButtonClicked(target) {
-    var self = target;
-    const id = self.getAttribute('data-id');
-    console.log(id);
     let obj = sessionStorage.getItem('heckel');
+    const self = event.currentTarget;
+    const id = self.getAttribute('data-id');
     self.disabled = true;
 
-     let div_tamanhos_disponiveis = document.getElementsByTagName('tamanhos');
+    let div_tamanhos_disponiveis = document.getElementsByTagName('tamanhos');
 
     removeElementsByClass('tamanhos');
 
@@ -133,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
        }
     }
     self.disabled = false;
-  };
+  });
 
   removeFastBuyAndAddFastBuy2();
   console.log('chamou');
