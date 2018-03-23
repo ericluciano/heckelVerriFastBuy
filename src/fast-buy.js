@@ -1,4 +1,4 @@
-//document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   // api url
   const API = 'api/catalog_system/pub/products/variations/';
   // create session
@@ -120,4 +120,4 @@
     }
   });
 
-//});
+});
