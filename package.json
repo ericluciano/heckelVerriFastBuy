@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src/fast-buy.js --out-file dist/fast-buy.js",
-    "compress": "./node_modules/.bin/uglifyjs dist/fast-buy.js --output dist/fast-buy.min.js --compress --mangle --warn --verbose",
+    "compress": "./node_modules/.bin/uglifyjs dist/fast-buy.js --output dist/fast-buy.min.js --compress --mangle --verbose",
     "build:all": "npm run build && npm run compress"
   },
   "repository": {
