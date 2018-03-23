@@ -55,32 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  document.body.addEventListener("click", function (event) {
+  $(document).on('click', '.btn-fast-buy2', function (event) {
     event.preventDefault();
 
-    var target = event.target;
-
-    while (target) {
-      if (target.classList && target.classList.contains('btn-fast-buy2')) {
-        break;
-      }
-      // Note: May want parentElement here instead.
-      target = target.parentNode;
-    }
-
-    if (!target) {
-      return;
-    }
-
-    fastBuyButtonClicked(target);
-  });
-
-  //$(document).on('click', '.fast-buy-2', function(e){});
-  function fastBuyButtonClicked(target) {
-    var self = target;
-    var id = self.getAttribute('data-id');
-    console.log(id);
     var obj = sessionStorage.getItem('heckel');
+    var self = event.currentTarget;
+    var id = self.getAttribute('data-id');
     self.disabled = true;
 
     var div_tamanhos_disponiveis = document.getElementsByTagName('tamanhos');
@@ -107,10 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
           if (quantidade_items <= 0) {
 
             $(i).after(markup(item));
-
             var fk = { 'state': id, 'lastState': id };
-
             sessionStorage.setItem('heckel', JSON.stringify(fk));
+
           }
         }).fail(function (err) {
           console.log(err);
@@ -118,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
     self.disabled = false;
-  };
+  });
 
   removeFastBuyAndAddFastBuy2();
   console.log('chamou');

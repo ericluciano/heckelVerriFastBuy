@@ -97,13 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
            if(quantidade_items <= 0) {
-
              $(i).after(markup(item));
-
              let fk = {'state': id, 'lastState': id};
-
              sessionStorage.setItem('heckel', JSON.stringify(fk));
-
            }
 
          })
