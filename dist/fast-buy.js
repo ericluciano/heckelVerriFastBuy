@@ -12,19 +12,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var removeFastBuyAndAddFastBuy2 = function removeFastBuyAndAddFastBuy2() {
 
-    var search = 'btn-fast-buy';
+    var btnSearch = 'btn-fast-buy';
     var btnNameAdd = 'btn-fast-buy2';
-    var element = document.querySelectorAll('.' + search);
 
-    for (var i = 0; i < element.length; i++) {
-      element[i].classList.remove(search);
-      element[i].classList.add(btnNameAdd);
-      element[i].href = "#";
-    }
+    $('.' + btnSearch).addClass(btnNameAdd).removeClass(btnSearch);
   };
 
   var markup = function markup(item) {
-    var els = '\n      <div class="tamanhos">;\n        <p>Escolha o tamanho</p>\n        <div class="tamanho-content">' + item + '</div>\n      </div>';
+    var els = '\n      <div class="tamanhos">\n        <p>Escolha o tamanho</p>\n        <div class="tamanho-content">' + item + '</div>\n      </div>';
     return els;
   };
 
@@ -54,6 +49,18 @@ document.addEventListener("DOMContentLoaded", function () {
       elements[0].parentNode.removeChild(elements[0]);
     }
   };
+  /*
+  var handler = function(e) {
+    var elem = e.target.closest('.btn-fast-buy');
+    if (elem) {
+      e.preventDefault();
+      elem.style = 'pointer-events:none;';
+      console.log(elem.getAttribute('data-id'));
+      console.log(elem.href);
+      console.log(elem);
+     }
+  }
+  document.addEventListener('click', handler, false)*/
 
   $(document).on('click', '.btn-fast-buy2', function (event) {
     event.preventDefault();
@@ -85,11 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
           });
 
           if (quantidade_items <= 0) {
-
             $(i).after(markup(item));
             var fk = { 'state': id, 'lastState': id };
             sessionStorage.setItem('heckel', JSON.stringify(fk));
-
           }
         }).fail(function (err) {
           console.log(err);

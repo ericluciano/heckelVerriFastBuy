@@ -16,10 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const removeFastBuyAndAddFastBuy2 = () => {
 
-    const btnSearch = 'btn-fast-buy';
+    const search = 'btn-fast-buy';
     const btnNameAdd = 'btn-fast-buy2';
+    const element = document.querySelectorAll(`.${search}`);
 
-    $(`.${btnSearch}`).addClass(btnNameAdd).removeClass(btnSearch);    
+    for(let i = 0; i < element.length; i++) {
+      element[i].classList.remove(search);
+      element[i].classList.add(btnNameAdd);
+      element[i].href = "#";
+    }
 
   };
 
